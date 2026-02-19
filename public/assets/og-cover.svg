@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#0b1220"/>
+    <stop offset="1" stop-color="#060a12"/>
+  </linearGradient>
+  <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#7dd3fc"/>
+    <stop offset="1" stop-color="#a78bfa"/>
+  </linearGradient>
+</defs>
+<rect width="1200" height="630" fill="url(#bg)"/>
+<circle cx="250" cy="120" r="220" fill="#7dd3fc" opacity=".10"/>
+<circle cx="980" cy="160" r="260" fill="#a78bfa" opacity=".10"/>
+<rect x="90" y="150" width="120" height="120" rx="28" fill="url(#g)"/>
+<text x="240" y="210" font-family="Arial, Helvetica, sans-serif" font-size="54" fill="#e9eefc" font-weight="800">BTP Solution Énergétique</text>
+<text x="240" y="270" font-family="Arial, Helvetica, sans-serif" font-size="28" fill="#c9d3f2" font-weight="600">Isolation • Rénovation • Énergie — Île-de-France</text>
+<text x="240" y="330" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#c9d3f2">Soufflage • Calorifuge • Flocage • ITI/ITE • PAC</text>
+</svg>

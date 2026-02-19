@@ -1,0 +1,5 @@
+<!-- /public/icons/logo.svg -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <path d="M8 30L32 10L56 30" stroke="white" stroke-width="3"/>
+  <path d="M16 30V52H48V30" stroke="white" stroke-width="3"/>
+</svg>
