@@ -89,7 +89,7 @@ export default function RenovationGlobale() {
             className="relative rounded-br-[60px] overflow-hidden shadow-lg min-h-64 sm:min-h-[400px]"
           >
             <Image
-              src="/assets/Rénovation globale intérieur.jpeg"
+              src="/assets/renovation-globale-interieur.jpeg"
               alt="Rénovation intérieure"
               width={600}
               height={400}
