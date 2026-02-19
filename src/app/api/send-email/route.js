@@ -2,14 +2,21 @@ import nodemailer from 'nodemailer';
 
 export async function POST(request) {
   try {
+    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASSWORD) {
+      console.error('Missing EMAIL_USER or EMAIL_PASSWORD environment variables');
+      return Response.json(
+        { success: false, message: 'Email service is not configured. Please set EMAIL_USER and EMAIL_PASSWORD.' },
+        { status: 503 }
+      );
+    }
+
     const formData = await request.json();
 
-    // Configure your email service
     const transporter = nodemailer.createTransport({
-      service: 'gmail', // or your email service
+      service: 'gmail',
       auth: {
-        user: process.env.EMAIL_USER, // Your email
-        pass: process.env.EMAIL_PASSWORD, // Your app password or password
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASSWORD,
       },
     });
 

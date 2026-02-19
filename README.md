@@ -1,36 +1,88 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# BTP Solution Énergétique
 
-## Getting Started
+Next.js website for BTP Solution Énergétique — energy renovation, insulation, and construction services.
 
-First, run the development server:
+## Tech Stack
+
+- **Framework:** Next.js 16 (App Router)
+- **UI:** React 19, Tailwind CSS 4, Framer Motion
+- **Email:** Nodemailer (Gmail)
+- **Node:** 18–20
+
+## Local Development
 
 ```bash
+cp .env.example .env   # then fill in your values
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Hostinger Deployment
 
-## Learn More
+### Prerequisites
 
-To learn more about Next.js, take a look at the following resources:
+- Hostinger plan with **Node.js App** support (Business or Cloud).
+- A Git repository (GitHub / GitLab / Bitbucket) containing this code.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Step-by-step
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. **Push your code** to a remote Git repository.
+2. In hPanel go to **Websites → Manage → Advanced → Node.js**.
+3. Fill in the fields using the values below.
+4. Click **Create** / **Save**.
+5. Go to **Environment Variables** in the same panel and add:
 
-## Deploy on Vercel
+| Variable         | Value                         |
+|------------------|-------------------------------|
+| `EMAIL_USER`     | your-email@gmail.com          |
+| `EMAIL_PASSWORD` | your Gmail App Password       |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+6. Click **Restart App**.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Hostinger Node.js Panel Values
+
+| Setting              | Value                          |
+|----------------------|--------------------------------|
+| **Node.js version**  | 20                             |
+| **Application root** | `/` (repo root)               |
+| **Install command**  | `npm install`                  |
+| **Build command**    | `npm run build`                |
+| **Start command**    | `npm start`                    |
+| **Application URL**  | your-domain.com                |
+
+### Environment Variables
+
+See `.env.example` for the full list:
+
+| Variable         | Required | Description                              |
+|------------------|----------|------------------------------------------|
+| `PORT`           | No       | Hostinger sets this automatically         |
+| `EMAIL_USER`     | Yes      | Gmail address used by the contact form    |
+| `EMAIL_PASSWORD` | Yes      | Gmail App Password (not regular password) |
+
+### Verify
+
+After deployment, visit your domain. The site should load immediately.  
+Test the contact form to confirm `EMAIL_USER` / `EMAIL_PASSWORD` are set.
+
+---
+
+## Project Structure
+
+```
+src/app/
+├── api/send-email/route.js   # Contact form API
+├── components/                # All React components
+├── realisations/[category]/   # Dynamic gallery pages
+├── globals.css                # Tailwind + global styles
+├── layout.js                  # Root layout
+└── page.js                    # Home page
+```
+
+## License
+
+Private — all rights reserved.
