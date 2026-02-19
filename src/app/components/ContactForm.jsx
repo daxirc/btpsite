@@ -29,16 +29,40 @@ export default function ContactForm() {
     setLoading(true);
     setMessage('');
 
+    const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_KEY;
+    if (!accessKey) {
+      setMessage('✗ Le service de contact n\'est pas configuré.');
+      setLoading(false);
+      return;
+    }
+
     try {
-      const response = await fetch('/api/send-email', {
+      const payload = {
+        access_key: accessKey,
+        subject: `Nouvelle demande de devis - ${formData.nom}`,
+        from_name: formData.nom,
+        replyto: formData.email,
+        Nom: formData.nom,
+        Email: formData.email,
+        'Téléphone': formData.telephone,
+        'Type de travaux': formData.typesTravaux,
+        'Type de bien': formData.typeBien,
+        'Type de client': formData.typeClient,
+        'Budget estimé': formData.budget,
+        'Date de début souhaitée': formData.dateDebut,
+        'Lieu du projet': formData.lieu,
+        Description: formData.description || 'Aucune description',
+      };
+
+      const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
       });
 
       const data = await response.json();
 
-      if (response.ok) {
+      if (data.success) {
         setMessage('✓ Votre demande a été envoyée avec succès!');
         setFormData({
           nom: '',

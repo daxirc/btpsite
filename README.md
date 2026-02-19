@@ -4,70 +4,79 @@ Next.js website for BTP Solution Énergétique — energy renovation, insulation
 
 ## Tech Stack
 
-- **Framework:** Next.js 16 (App Router)
+- **Framework:** Next.js 16 (App Router, static export)
 - **UI:** React 19, Tailwind CSS 4, Framer Motion
-- **Email:** Nodemailer (Gmail)
-- **Node:** 18–20
+- **Contact form:** Web3Forms (client-side, no backend)
+- **Node:** 18–20 (build only)
 
 ## Local Development
 
 ```bash
-cp .env.example .env   # then fill in your values
+cp .env.example .env.local   # then fill in your Web3Forms key
 npm install
 npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
 
+## Build Static Site
+
+```bash
+npm run build
+```
+
+This generates the `out/` folder containing the full static site (HTML, CSS, JS, images).
+
 ---
 
-## Hostinger Deployment
+## Hostinger Shared Hosting Deployment
 
-### Prerequisites
+Since Hostinger shared hosting supports **static files only**, the deployment is:
 
-- Hostinger plan with **Node.js App** support (Business or Cloud).
-- A Git repository (GitHub / GitLab / Bitbucket) containing this code.
+### One-time setup: Web3Forms (for the contact form)
 
-### Step-by-step
+1. Go to [https://web3forms.com](https://web3forms.com)
+2. Enter the receiving email: `btpsolution.pro@gmail.com`
+3. Check your inbox — copy the **access key**
+4. Create `.env.local` with:
+   ```
+   NEXT_PUBLIC_WEB3FORMS_KEY=paste-your-key-here
+   ```
+5. Rebuild: `npm run build`
 
-1. **Push your code** to a remote Git repository.
-2. In hPanel go to **Websites → Manage → Advanced → Node.js**.
-3. Fill in the fields using the values below.
-4. Click **Create** / **Save**.
-5. Go to **Environment Variables** in the same panel and add:
+### Upload to Hostinger
 
-| Variable         | Value                         |
-|------------------|-------------------------------|
-| `EMAIL_USER`     | your-email@gmail.com          |
-| `EMAIL_PASSWORD` | your Gmail App Password       |
+1. Run `npm run build` locally (requires Node 18–20).
+2. This produces the `out/` folder.
+3. **Zip the contents** inside `out/` (not the `out/` folder itself).
+4. In hPanel go to **Websites → Manage → File Manager**.
+5. Navigate to `public_html`.
+6. **Delete** existing files in `public_html` (if any).
+7. **Upload** the zip file.
+8. **Extract** it inside `public_html`.
+9. Done — visit your domain.
 
-6. Click **Restart App**.
+### What goes in `public_html`
 
-### Hostinger Node.js Panel Values
+```
+public_html/
+├── index.html          ← home page
+├── realisations/       ← gallery pages
+│   ├── flocage/
+│   ├── calorifuge/
+│   ├── toiture/
+│   └── ...
+├── assets/             ← images
+├── _next/              ← CSS, JS bundles
+├── icons/              ← SVG icons
+└── ...
+```
 
-| Setting              | Value                          |
-|----------------------|--------------------------------|
-| **Node.js version**  | 20                             |
-| **Application root** | `/` (repo root)               |
-| **Install command**  | `npm install`                  |
-| **Build command**    | `npm run build`                |
-| **Start command**    | `npm start`                    |
-| **Application URL**  | your-domain.com                |
+### Re-deploying after changes
 
-### Environment Variables
-
-See `.env.example` for the full list:
-
-| Variable         | Required | Description                              |
-|------------------|----------|------------------------------------------|
-| `PORT`           | No       | Hostinger sets this automatically         |
-| `EMAIL_USER`     | Yes      | Gmail address used by the contact form    |
-| `EMAIL_PASSWORD` | Yes      | Gmail App Password (not regular password) |
-
-### Verify
-
-After deployment, visit your domain. The site should load immediately.  
-Test the contact form to confirm `EMAIL_USER` / `EMAIL_PASSWORD` are set.
+1. Make code changes
+2. `npm run build`
+3. Zip `out/` contents → upload → extract into `public_html`
 
 ---
 
@@ -75,7 +84,6 @@ Test the contact form to confirm `EMAIL_USER` / `EMAIL_PASSWORD` are set.
 
 ```
 src/app/
-├── api/send-email/route.js   # Contact form API
 ├── components/                # All React components
 ├── realisations/[category]/   # Dynamic gallery pages
 ├── globals.css                # Tailwind + global styles
